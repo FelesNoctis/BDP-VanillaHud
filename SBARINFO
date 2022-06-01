@@ -1,0 +1,224 @@
+/* Base Doom; */
+Height 0;
+InterpolateHealth TRUE, 1024;
+InterpolateArmor TRUE, 1024;
+MonospaceFonts TRUE, "0";
+Resolution 320, 240;
+
+statusbar fullscreen, fullscreenoffsets // ZDoom HUD
+{
+	// LEFT SIDE
+	// health
+	drawimage "FLDHEALT", 0, -32;
+	drawnumber 3, FDFONT_DOOM2, untranslated, health, 44, -29;
+	drawimage "D2PRCNT", 44, -29;
+
+	// armor
+	drawimage "FLDARMOR", 59, -32;
+	drawnumber 3, FDFONT_DOOM2, untranslated, armor, 103, -29;
+	drawimage "D2PRCNT", 103, -29;
+
+	// mugshot
+	drawimage "FLDSTL", 118, -32;	
+	drawmugshot "STM", 5, 119, -32;
+	
+	// static powerups
+	InInventory PowerStrength { DrawImage "HASBERK", 119, -31; }
+	InInventory PowerShield { DrawImage "HASARMR", 148, -31; }
+
+	// inventory selected
+	drawimage "FLDSTL", 0, -64;
+	drawselectedinventory center, alwaysshowcounter, FDFONT_SDOOM2, 18, -57, 34, -61, untranslated;
+
+
+
+	// RIGHT SIDE
+	// ammo tally
+	drawimage "FLDCAPS", -74, -64;
+	drawnumber 3, FDFONT_SDOOM2, untranslated, ammo(Clip1),					-33, -59;
+	drawnumber 3, FDFONT_SDOOM2, untranslated, ammo(AmmoShell),				-33, -53;
+	drawnumber 3, FDFONT_SDOOM2, untranslated, ammo(Clip2),					-33, -47;
+	drawnumber 3, FDFONT_SDOOM2, untranslated, ammo(AmmoRocket),			-33, -41;
+	drawnumber 3, FDFONT_SDOOM2, untranslated, ammo(AmmoCell),				-33, -35;
+	drawnumber 3, FDFONT_SDOOM2, untranslated, ammo(SoulAmmo),				-33, -29;
+	drawnumber 3, FDFONT_SDOOM2, untranslated, ammo(Gas),					-33, -23;
+	drawnumber 3, FDFONT_SDOOM2, untranslated, ammo(Nuke),					-33, -17;
+
+	drawnumber 3, FDFONT_SDOOM2, untranslated, ammocapacity(Clip1),			-7, -59;
+	drawnumber 3, FDFONT_SDOOM2, untranslated, ammocapacity(AmmoShell),		-7, -53;
+	drawnumber 3, FDFONT_SDOOM2, untranslated, ammocapacity(Clip2),			-7, -47;
+	drawnumber 3, FDFONT_SDOOM2, untranslated, ammocapacity(AmmoRocket),	-7, -41;
+	drawnumber 3, FDFONT_SDOOM2, untranslated, ammocapacity(AmmoCell),		-7, -35;
+	drawnumber 3, FDFONT_SDOOM2, untranslated, ammocapacity(SoulAmmo),		-7, -29;
+	drawnumber 3, FDFONT_SDOOM2, untranslated, ammocapacity(Gas),			-7, -23;
+	drawnumber 3, FDFONT_SDOOM2, untranslated, ammocapacity(Nuke),			-7, -17;
+	
+	// keys
+	drawimage "FLDKEYS", -87, -32;
+	drawswitchableimage keyslot 2 && 5, "nullimage", "STKEYS0", "STKEYS3", "STKEYS6", -84, -29;
+	drawswitchableimage keyslot 3 && 6, "nullimage", "STKEYS1", "STKEYS4", "STKEYS7", -84, -19;
+	drawswitchableimage keyslot 1 && 4, "nullimage", "STKEYS2", "STKEYS5", "STKEYS8", -84, -9;
+
+	// current weapon ammo
+	UsesAmmo
+	{
+		// panels, vehicles
+		InInventory "PowerArtilleryTankSwitch", 1 || "PowerattackhelicopterSwitch", 1
+		{
+			drawimage "FLDMAG1", -177, -32;
+			drawnumber 3, FDFONT_DOOM2, untranslated, ammo1, -133, -29;
+			drawimage "FLDMAG2", -132, -32;
+			drawnumber 3, FDFONT_DOOM2, untranslated, ammo2, -88, -29;
+		}
+		else InInventory "PowerTankSwitch", 1
+		{
+			drawimage "FLDMAG1", -177, -32;
+			drawnumber 3, FDFONT_DOOM2, untranslated, ammo2, -133, -29;
+			drawimage "FLDMAG2", -132, -32;
+			drawnumber 3, FDFONT_DOOM2, untranslated, ammo1, -88, -29;
+		}
+		else InInventory "PowerHeavyMachinegunSwitch", 1
+		{
+			drawimage "FLDAMMO", -132, -32;
+			drawnumber 3, FDFONT_DOOM2, untranslated, ammo1, -88, -29; 
+		}
+		else InInventory "PowerBikeSwitch", 1
+		{
+			drawimage "FLDKPH", -132, -32;
+			drawnumber 3, FDFONT_DOOM2, untranslated, ammo1, -88, -29; 
+		}
+		// panels, weapons
+		else IsSelected "Machinegun", "MiniGun" // Slot 4, swapped ammo reads
+		{
+			drawimage "FLDMAG1", -177, -32;
+			drawnumber 3, FDFONT_DOOM2, untranslated, ammo1, -133, -29;
+			drawimage "FLDMAG2", -132, -32;
+			drawnumber 3, FDFONT_DOOM2, untranslated, ammo2, -88, -29;
+		}
+		else IsSelected "BFG10k" // Slot 7, BFG10k
+		{
+			drawimage "FLDMAG1", -177, -32;
+			drawnumber 3, FDFONT_DOOM2, untranslated, ammo1, -133, -29;
+			drawimage "FLDMAG2", -132, -32;
+			drawnumber 3, FDFONT_DOOM2, untranslated, ammo2, -88, -29;
+		}
+		else IsSelected "BIG_FUCKING_GUN", "Unmaker" // Slot 7, ammo pool only
+		{
+			drawimage "FLDAMMO", -132, -32;
+			drawnumber 3, FDFONT_DOOM2, untranslated, ammo1, -88, -29; 
+		}
+		else IsSelected "HellishMissileLauncher" // Slot 8, Revenant Launcher
+		{
+			drawimage "FLDMAG1", -177, -32;
+			drawnumber 3, FDFONT_DOOM2, untranslated, ammo1, -133, -29;
+			drawimage "FLDMAG2", -132, -32;
+			drawnumber 3, FDFONT_DOOM2, untranslated, ammo2, -88, -29;
+		}
+		else IsSelected "FlameCannon", "DualFlameCannon" // Slot 9, Mancubus Flame Cannons
+		{
+			drawimage "FLDAMMO", -132, -32;
+			drawnumber 3, FDFONT_DOOM2, untranslated, ammo1, -88, -29; 
+		}
+		else IsSelected "HandGrenades", "Flamethrower2" // Slot 9, Grenades and old Flamethrower
+		{
+			drawimage "FLDAMMO", -132, -32;
+			drawnumber 3, FDFONT_DOOM2, untranslated, ammo1, -88, -29; 
+		}
+		else IsSelected "CyberdemonsMissileLauncher", "MastermindChaingun" // INV, Boss Weapons
+		{
+			drawimage "FLDAMMO", -132, -32;
+			drawnumber 3, FDFONT_DOOM2, untranslated, ammo1, -88, -29; 
+		}
+		else // Everything that doesn't need a special case
+		{
+			drawimage "FLDMAG", -177, -32;
+			drawnumber 3, FDFONT_DOOM2, untranslated, ammo2, -133, -29;
+			drawimage "FLDAMMO", -132, -32;
+			drawnumber 3, FDFONT_DOOM2, untranslated, ammo1, -88, -29;
+		}
+
+		// special case numbers
+		IsSelected "AssaultShotgun" { IfCVarInt bd_EnergyASG, 1, equal {
+			drawnumber 3, FDFONT_DOOM2, purple, ammo2, -133, -29;
+			drawnumber 3, FDFONT_DOOM2, purple, ammo1, -88, -29; } }
+		IsSelected "Shot_Gun" { IfCVarInt bd_ShotgunSlugs, 1, equal {
+			drawnumber 3, FDFONT_DOOM2, white, ammo2, -133, -29;
+			drawnumber 3, FDFONT_DOOM2, white, ammo1, -88, -29; } }
+		IsSelected "SSG" { InInventory "UsingDragonBreath", 1 {
+			drawnumber 3, FDFONT_DOOM2, orange, ammo2, -133, -29;
+			drawnumber 3, FDFONT_DOOM2, orange, ammo1, -88, -29; } }
+		IsSelected "GrenadeLauncher" { IfCVarInt BD_STICKYGRENADES, 1, equal {
+			drawnumber 3, FDFONT_DOOM2, lightblue, ammo2, -133, -29;
+			drawnumber 3, FDFONT_DOOM2, lightblue, ammo1, -88, -29; } }
+		IsSelected "Rocket_Launcher" { IfCVarInt bd_LaserRockets, 1, equal {
+			drawnumber 3, FDFONT_DOOM2, brick, ammo2, -133, -29;
+			drawnumber 3, FDFONT_DOOM2, brick, ammo1, -88, -29; } }
+		IsSelected "Plasma_Gun" { IfCVarInt bd_needlegun, 1, equal {
+			drawnumber 3, FDFONT_DOOM2, purple, ammo2, -133, -29;
+			drawnumber 3, FDFONT_DOOM2, purple, ammo1, -88, -29; } }	
+		IsSelected "HellishMissileLauncher" { IfCVarInt bd_HellishLaserRockets, 1, equal {
+			drawnumber 3, FDFONT_DOOM2, brick, ammo1, -133, -29;
+			drawnumber 3, FDFONT_DOOM2, brick, ammo2, -88, -29; } }
+		IsSelected "HandGrenades" {
+			InInventory "nadetype", 3		{ drawnumber 1, FDFONT_DOOM2, purple, ammo1, -88, -29; }
+			else InInventory "nadetype", 2	{ drawnumber 1, FDFONT_DOOM2, green, ammo1, -88, -29; }
+			else InInventory "nadetype", 1	{ drawnumber 1, FDFONT_DOOM2, cyan, ammo1, -88, -29; }
+			else InInventory not "nadetype"	{ drawnumber 1, FDFONT_DOOM2, orange, ammo1, -88, -29; } }
+	}
+
+	// grenades
+	drawimage "FLDGRN", -74, -96;
+	drawnumber 1, FDFONT_SDOOM2, untranslated, ammo(AmmoVoidGrenade),	-7, -73;
+	drawnumber 1, FDFONT_SDOOM2, untranslated, ammo(AmmoPipeBomb),		-7, -79;
+	drawnumber 1, FDFONT_SDOOM2, untranslated, ammo(AmmoIceGrenade),	-7, -85;
+	drawnumber 1, FDFONT_SDOOM2, untranslated, ammo(AmmoFragGrenade),	-7, -91;
+
+	// grenade preview
+	InInventory "nadetype", 3		{ drawImage "BDPGRNV", -56, -80, center, 30, 26; }
+	else InInventory "nadetype", 2	{ drawImage "BDPGRNP", -56, -80, center, 30, 26; }
+	else InInventory "nadetype", 1	{ drawImage "BDPGRNF", -56, -80, center, 30, 26; }
+	else InInventory not "nadetype"	{ drawImage "BDPGRNC", -56, -80, center, 30, 26; }
+
+	// grenade selection
+	InInventory "nadetype", 3 {
+		drawImage "BDPVOID", -34, -73;
+		drawnumber 1, FDFONT_SDOOM2, purple, ammo(AmmoVoidGrenade),	-7, -73; }
+	else InInventory "nadetype", 2 {
+		drawImage "BDPPIPE", -34, -79;
+		drawnumber 1, FDFONT_SDOOM2, green, ammo(AmmoPipeBomb),		-7, -79; }
+	else InInventory "nadetype", 1 {
+		drawImage "BDPFREZ", -34, -85;
+		drawnumber 1, FDFONT_SDOOM2, cyan, ammo(AmmoIceGrenade),	-7, -85; }
+	else InInventory not "nadetype" {
+		drawImage "BDPCLST", -34, -91;
+		drawnumber 1, FDFONT_SDOOM2, orange, ammo(AmmoFragGrenade),	-7, -91; }
+
+	// stamina bar
+	InInventory UsedStamina, 1 {
+		DrawBar "STMNBAR2", "STMNBAR", Ammo UsedStamina, horizontal, interpolate(8), 96, -46;
+		drawimage "STMNBAR3", 96, -46; }
+
+
+
+	// UNUSED?
+	Alpha 0.4
+	{
+		//drawimage armoricon, 87, -21, center, 58, 16, forcescale;
+	}
+	
+	Alpha 0.4
+	{
+		//drawimage ammoicon1, -23, -54, center, 32, 14, forcescale;
+	}
+}
+
+statusbar inventoryfullscreen, fullscreenoffsets // ZDoom HUD overlay.
+{
+	drawinventorybar Doom, vertical, 5, INDEXFONT, 0, -219;
+}
+
+StatusBar Normal {}
+
+StatusBar Automap {}
+
+StatusBar Inventory {}
