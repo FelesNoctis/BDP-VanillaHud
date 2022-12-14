@@ -3,7 +3,7 @@ Vanilla-esque HUD for Brutal Doom Platinum, utilizing modified Final Doomer pane
 
 ### Screenshots
 ![BDP test map with this HUD example 1](https://cdn.discordapp.com/attachments/921500818035834920/1052329524811018301/Screenshot_Doom_20221213_130101.png)
-![BDP test map with this HUD example 2](https://cdn.discordapp.com/attachments/921500818035834920/1052329667174072382/Screenshot_Doom_20221213_130210.png)
+![BDP test map with this HUD example 2](https://i.imgur.com/YAaGPdp.png)
 ![Xeno1979's example screenshot](https://cdn.discordapp.com/attachments/921500818035834920/1052333027956625429/Schermafbeelding_2022-12-13_om_22.13.02.png)
 
 
