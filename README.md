@@ -1,5 +1,5 @@
 # HereticHUD
-Vanilla-esque HUD for Brutal Doom Platinum, utilizing modified Final Doomer panels
+Vanilla-esque HUD for [Brutal Doom Platinum](https://github.com/EmeraldCoasttt/BrutalDoomPlatinum), utilizing modified Final Doomer panels
 
 ### Screenshots
 ![BDP test map with this HUD example 1](https://cdn.discordapp.com/attachments/921500818035834920/1052329524811018301/Screenshot_Doom_20221213_130101.png)
